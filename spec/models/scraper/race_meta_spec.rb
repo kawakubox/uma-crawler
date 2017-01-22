@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe RaceMeta do
+RSpec.describe Scraper::RaceMeta do
   let(:html) { File.read('spec/fixtures/html/race_result.html') }
-  subject { RaceMeta.new(html: html) }
+  subject { Scraper::RaceMeta.new(html: html) }
 
   its(:title) { is_expected.to eq '第83回東京優駿' }
   its(:grade) { is_expected.to eq 'GI' }
