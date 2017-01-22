@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Schedule
+class Scraper::Schedule
   attr_reader :doc
 
   # @param [String] :html Schedule page html contents

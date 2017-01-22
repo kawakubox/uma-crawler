@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RaceMeta
+class Scraper::RaceMeta
   attr_reader :doc
 
   def initialize(html:)
