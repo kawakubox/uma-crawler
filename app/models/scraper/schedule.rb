@@ -11,12 +11,12 @@ module Scraper
 
     # @return [Fixnum]
     def year
-      @doc.search('option[selected]').first.content.match(/(\d+)年/)[1].to_i
+      @doc.at_css('.scheHead h3').text.match(/(\d+)年(\d+)月/)[1].to_i
     end
 
     # @return [Fixnum]
     def month
-      @doc.search('.scheHeadNaviR strong').first.content.match(/(\d+)月/)[1].to_i
+      @doc.at_css('.scheHead h3').text.match(/(\d+)年(\d+)月/)[2].to_i
     end
 
     # @param [Nokogiri::Node::XML]
