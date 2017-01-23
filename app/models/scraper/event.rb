@@ -4,8 +4,10 @@ class Scraper::Event
   attr_reader :doc
 
   # @param [String] :html Event page html contents
-  def initialize(html:)
+  # @param [Event] :event
+  def initialize(html:, event:)
     @doc = Nokogiri::HTML(html)
+    @event = event
   end
 
   # @return [Array<String>] race page path (without protocol and hostname)
