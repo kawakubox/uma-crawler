@@ -17,4 +17,14 @@ class Scraper::Event
       url if url =~ %r{/race/result/.+}
     end.compact
   end
+
+  def races
+    @doc.search('tr').map do |tr|
+      next if tr.search('td').count < 5
+      race_id = tr.at_css('td a').attr('href').match(%r{/race/result/(\d+)})[1]
+      Race.find_or_create_by(id: race_id) do |race|
+        race.event = @event
+      end
+    end
+  end
 end
