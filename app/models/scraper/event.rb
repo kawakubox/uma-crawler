@@ -12,7 +12,7 @@ class Scraper::Event
   def race_urls
     @doc.search('td a').map do |a|
       url = a.attr('href')
-      url if url.match(%r{/race/result/.+})
+      url if url =~ %r{/race/result/.+}
     end.compact
   end
 end
