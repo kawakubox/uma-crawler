@@ -1,1 +1,2 @@
 require 'events.schema'
+require 'races.schema'

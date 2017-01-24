@@ -7,6 +7,10 @@ class Scraper::RaceMeta
     @doc = Nokogiri::HTML(html)
   end
 
+  def race_no
+    @doc.at_css('#raceNo').text.gsub(/R/, '').strip
+  end
+
   def title
     @doc.at_css('#raceTit h1').text.match(/(.*)（(.*)）/)[1].strip
   end
@@ -15,7 +19,7 @@ class Scraper::RaceMeta
     @doc.at_css('#raceTit h1').text.match(/(.*)（(.*)）/)[2].strip
   end
 
-  def kind
+  def course_type
     @doc.at_css('#raceTitMeta').text.split('|')[0].match(/(芝|ダ|障害)・(左|右|芝→ダート) *(\d+)m/)[1]
   end
 
@@ -31,7 +35,7 @@ class Scraper::RaceMeta
     @doc.search('#raceTitMeta img')[0].attr('alt')
   end
 
-  def condition
+  def course_condition
     @doc.search('#raceTitMeta img')[1].attr('alt')
   end
 end
