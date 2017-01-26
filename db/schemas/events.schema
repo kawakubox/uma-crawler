@@ -1,3 +1,5 @@
 create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-  t.date "held_on"
+  t.date     "held_on"
+  t.datetime "created_at", null: false
+  t.datetime "updated_at", null: false
 end
