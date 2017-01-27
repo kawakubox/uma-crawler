@@ -1,0 +1,8 @@
+create_table "race_refunds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  t.integer  "race_id"
+  t.string   "bet_type"
+  t.string   "winning_number"
+  t.integer  "payout"
+  t.datetime "created_at",     null: false
+  t.datetime "updated_at",     null: false
+end
