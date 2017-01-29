@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class ScrapeRaceJob < ApplicationJob
   queue_as :default
 
   def perform(race:)
-    scraper = Scraper::RaceMeta.new(html: open(race.url))
+    scraper = Scraper::RaceMeta.new(html: open(race.result_url))
     race.no = scraper.race_no
     race.title = scraper.title
     race.grade = scraper.grade

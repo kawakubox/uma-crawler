@@ -6,5 +6,5 @@ RSpec.describe Race, type: :model do
 
   it { is_expected.to respond_to :event }
 
-  its(:url) { is_expected.to match(%r{https://keiba.yahoo.co.jp/race/result/\d{10}/}) }
+  its(:result_url) { is_expected.to match(%r{https://keiba.yahoo.co.jp/race/result/\d{10}/}) }
 end
