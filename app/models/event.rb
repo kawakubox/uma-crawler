@@ -4,6 +4,6 @@ class Event < ApplicationRecord
   has_many :races
 
   def url
-    "http://keiba.yahoo.co.jp/race/list/#{id}/"
+    "https://keiba.yahoo.co.jp/race/list/#{id}/"
   end
 end
