@@ -3,19 +3,26 @@
 module Scraper
   class Refund
     attr_reader :doc
+    attr_reader :race
   
-    def initialize(html:)
-      @doc = Nokogiri::HTML(html)
+    def initialize(race:)
+      @race = race
+      @doc = Nokogiri::HTML(open(race.result_url))
     end
   
-    def refund
+    def scrape
       @doc.search('.resultYen tr').map do |tr|
-        bet = tr.at_css('th')&.text
-        result = tr.search('td')[0].text
-        amount = tr.search('td')[1].text
-        popularity = tr.search('td')[2].text
-        [bet, result, amount, popularity]
+        ::Refund.create(params(tr).merge(race: @race))
       end
+    end
+
+    def params(tr)
+      {
+        bet_type: tr.at_css('th')&.text,
+        winning_number: tr.search('td')[0].text,
+        payout: tr.search('td')[1].text,
+        popularity: tr.search('td')[2].text
+      }
     end
   end
 end
