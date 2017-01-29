@@ -5,11 +5,11 @@ namespace :ridgepole do
 
   desc 'Execute ridgepole apply command'
   task apply: :environment do
-    exec("bundle exec ridgepole -c #{CONFIG_FILE} --apply -f #{SCHEMA_FILE}")
+    exec("bundle exec ridgepole -c #{CONFIG_FILE} --apply -f #{SCHEMA_FILE} -E #{Rails.env}")
   end
 
   desc 'Execute ridgepole export command'
   task export: :environment do
-    exec("bundle exec ridgepole -c #{CONFIG_FILE} --export --split -o #{SCHEMA_FILE}")
+    exec("bundle exec ridgepole -c #{CONFIG_FILE} --export --split -o #{SCHEMA_FILE} -E {Rails.env}")
   end
 end
