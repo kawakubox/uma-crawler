@@ -3,6 +3,7 @@ create_table "refunds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET
   t.string   "bet_type"
   t.string   "winning_number"
   t.integer  "payout"
+  t.integer  "popularity"
   t.datetime "created_at",     null: false
   t.datetime "updated_at",     null: false
 end
