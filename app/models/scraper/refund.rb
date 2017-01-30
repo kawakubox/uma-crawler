@@ -11,18 +11,15 @@ module Scraper
     end
   
     def scrape
-      @doc.search('.resultYen tr').map do |tr|
-        ::Refund.create(params(tr).merge(race: @race))
+      bet_type = nil
+      @doc.search('.resultYen tr').each do |tr|
+        bet_type = tr.at_css('th')&.text || bet_type
+        winning_number = tr.search('td')[0].text
+        refund = ::Refund.find_or_initialize_by(race: @race, bet_type: bet_type, winning_number: winning_number)
+        refund.payout = tr.search('td')[1].text.delete(',')
+        refund.popularity = tr.search('td')[2].text.delete(',')
+        refund.save
       end
-    end
-
-    def params(tr)
-      {
-        bet_type: tr.at_css('th')&.text,
-        winning_number: tr.search('td')[0].text,
-        payout: tr.search('td')[1].text,
-        popularity: tr.search('td')[2].text
-      }
     end
   end
 end

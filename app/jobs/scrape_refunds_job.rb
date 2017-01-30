@@ -4,6 +4,6 @@ class ScrapeRefundsJob < ApplicationJob
   queue_as :default
 
   def perform(race:)
-    Scraper::Refund.new(race: race).scrape.map(&:save)
+    Scraper::Refund.new(race: race).scrape
   end
 end
