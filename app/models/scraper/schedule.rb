@@ -36,7 +36,7 @@ module Scraper
       @doc.search('tr').map do |tr|
         tds = tr.search('td')
         next if tds.blank? || tds.count < 3
-        Event.find_or_create_by(id: event_id(tr)) do |event|
+        ::Event.find_or_create_by(id: event_id(tr)) do |event|
           event.held_on = Date.new(year, month, date(tr))
         end
       end.compact
