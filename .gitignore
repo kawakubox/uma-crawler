@@ -19,4 +19,7 @@
 # Ignore vendor librareis.
 /vendor
 
+# Ignoew RubyMine settengs.
+/.idea
+
 *.swp
