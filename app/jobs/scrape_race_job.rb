@@ -3,7 +3,8 @@
 class ScrapeRaceJob < ApplicationJob
   queue_as :default
 
-  def perform(race:)
+  # @param [Race] :race
+  def perform(race)
     scraper = Scraper::RaceMeta.new(html: open(race.result_url))
     race.no = scraper.race_no
     race.title = scraper.title
