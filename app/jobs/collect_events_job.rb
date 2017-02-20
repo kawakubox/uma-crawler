@@ -5,7 +5,7 @@ class CollectEventsJob < ApplicationJob
 
   # @param [Fixnum] :from
   # @param [Fixnum] :to
-  def perform(from, to)
+  def perform(from, to = nil)
     to ||= from
     years = (from..to).to_a
     months = (1..12).to_a
