@@ -10,7 +10,7 @@ class CollectEventsJob < ApplicationJob
     years = (from..to).to_a
     months = (1..12).to_a
     years.product(months).each do |y, m|
-      url = "http://keiba.yahoo.co.jp/schedule/list/#{y}/?month=#{m}"
+      url = "https://keiba.yahoo.co.jp/schedule/list/#{y}/?month=#{m}"
       scraper = Scraper::Schedule.new(html: open(url))
       scraper.events
       sleep(5)
