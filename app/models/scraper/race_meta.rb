@@ -12,11 +12,11 @@ class Scraper::RaceMeta
   end
 
   def title
-    @doc.at_css('#raceTit h1').text.match(/(.*)（(.*)）/)[1].strip
+    @doc.at_css('#raceTit h1').text.match(/(.*)(（(.*)）)?/)[1].strip
   end
 
   def grade
-    @doc.at_css('#raceTit h1').text.match(/(.*)（(.*)）/)[2].strip
+    @doc.at_css('#raceTit h1').text.match(/(.*)(（(.*)）)?/)[3]&.strip
   end
 
   def course_type
