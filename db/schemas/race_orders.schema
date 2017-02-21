@@ -1,0 +1,12 @@
+create_table "race_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  t.integer  "race_id"
+  t.integer  "order"
+  t.integer  "gate_no"
+  t.integer  "horse_no"
+  t.integer  "horse_id"
+  t.string   "horse_name"
+  t.integer  "weight"
+  t.integer  "weight_diff"
+  t.datetime "created_at",     null: false
+  t.datetime "updated_at",     null: false
+end
