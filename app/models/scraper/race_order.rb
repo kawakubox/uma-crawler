@@ -26,7 +26,9 @@ module Scraper
         horse_id: horse_id(tr),
         horse_name: horse_name(tr),
         weight: weight(tr),
-        weight_diff: weight_diff(tr)
+        weight_diff: weight_diff(tr),
+        time: time(tr),
+        order_diff: order_diff(tr),
       }
       race_order
     end
@@ -57,6 +59,14 @@ module Scraper
 
     def weight_diff(tr)
       tr.search('td')[3].at_css('span').text.match(/\/(\d+)\((.*)\)\/(.*)/)[2]
+    end
+
+    def time(tr)
+      tr.search('td')[4].child.text.presence
+    end
+
+    def order_diff(tr)
+      tr.search('td')[4].at_css('span').text.presence
     end
   end
 end
