@@ -19,8 +19,9 @@ module Scraper
     end
 
     def row(tr)
-      race_order = ::RaceOrder.find_or_initialize_by(race: @race, order: order(tr))
+      race_order = ::RaceOrder.find_or_initialize_by(race: @race, horse_no: horse_no(tr))
       race_order.attributes = {
+        order: order(tr),
         gate_no: gate_no(tr),
         horse_no: horse_no(tr),
         horse_id: horse_id(tr),
