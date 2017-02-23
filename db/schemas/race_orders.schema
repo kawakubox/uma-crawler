@@ -9,6 +9,15 @@ create_table "race_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHA
   t.integer  "weight_diff"
   t.string   "time"
   t.string   "order_diff"
-  t.datetime "created_at",     null: false
-  t.datetime "updated_at",     null: false
+  t.string   "passage_order"
+  t.string   "last_3f_time"
+  t.string   "jockey_id"
+  t.string   "jockey_name"
+  t.decimal  "jockey_weight", precision: 3, scale: 1
+  t.integer  "popularity"
+  t.decimal  "odds",          precision: 4, scale: 1
+  t.string   "trainer_id"
+  t.string   "trainer_name"
+  t.datetime "created_at",                            null: false
+  t.datetime "updated_at",                            null: false
 end

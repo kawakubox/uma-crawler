@@ -30,6 +30,15 @@ module Scraper
         weight_diff: weight_diff(tr),
         time: time(tr),
         order_diff: order_diff(tr),
+        passage_order: passage_order(tr),
+        last_3f_time: last_3f_time(tr),
+        jockey_id: jockey_id(tr),
+        jockey_name: jockey_name(tr),
+        jockey_weight: jockey_weight(tr),
+        popularity: popularity(tr),
+        odds: odds(tr),
+        trainer_id: trainer_id(tr),
+        trainer_name: trainer_name(tr)
       }
       race_order
     end
@@ -55,11 +64,11 @@ module Scraper
     end
 
     def weight(tr)
-      tr.search('td')[3].at_css('span').text.match(/\/(\d+)\((.*)\)\/(.*)/)[1]
+      tr.search('td')[3].at_css('span').text.match(%r{/(\d+)\((.*)\)/(.*)})[1]
     end
 
     def weight_diff(tr)
-      tr.search('td')[3].at_css('span').text.match(/\/(\d+)\((.*)\)\/(.*)/)[2]
+      tr.search('td')[3].at_css('span').text.match(%r{\/(\d+)\((.*)\)\/(.*)})[2]
     end
 
     def time(tr)
@@ -68,6 +77,42 @@ module Scraper
 
     def order_diff(tr)
       tr.search('td')[4].at_css('span').text.presence
+    end
+
+    def passage_order(tr)
+      tr.search('td')[5].child.text.presence
+    end
+
+    def last_3f_time(tr)
+      tr.search('td')[5].at_css('span').text.presence
+    end
+
+    def jockey_id(tr)
+      tr.search('td')[6].at_css('a').attr('href').split('/').last
+    end
+
+    def jockey_name(tr)
+      tr.search('td')[6].at_css('a').text
+    end
+
+    def jockey_weight(tr)
+      tr.search('td')[6].at_css('span').text.gsub(/[▲△☆]/, '')
+    end
+
+    def popularity(tr)
+      tr.search('td')[7].child.text
+    end
+
+    def odds(tr)
+      tr.search('td')[7].at_css('span').text.gsub(/[()]/, '')
+    end
+
+    def trainer_id(tr)
+      tr.search('td')[8].at_css('a').attr('href').split('/').last
+    end
+
+    def trainer_name(tr)
+      tr.search('td')[8].at_css('a').text
     end
   end
 end
