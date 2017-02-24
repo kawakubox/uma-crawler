@@ -1,4 +1,4 @@
 # frozen_string_literal: true
-class RaceOrder < ApplicationRecord
+class RaceResult < ApplicationRecord
   belongs_to :race
 end

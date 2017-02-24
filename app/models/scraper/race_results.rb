@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Scraper
-  class RaceOrder
+  class RaceResults
     attr_reader :doc
 
     # @param [Race] :race
@@ -19,8 +19,8 @@ module Scraper
     end
 
     def row(tr)
-      race_order = ::RaceOrder.find_or_initialize_by(race: @race, horse_no: horse_no(tr))
-      race_order.attributes = {
+      race_result = ::RaceResult.find_or_initialize_by(race: @race, horse_no: horse_no(tr))
+      race_result.attributes = {
         order: order(tr),
         gate_no: gate_no(tr),
         horse_no: horse_no(tr),
@@ -40,7 +40,7 @@ module Scraper
         trainer_id: trainer_id(tr),
         trainer_name: trainer_name(tr)
       }
-      race_order
+      race_result
     end
 
     def order(tr)

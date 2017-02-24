@@ -1,4 +1,4 @@
 require 'events.schema'
+require 'race_results.schema'
 require 'refunds.schema'
-require 'race_orders.schema'
 require 'races.schema'
