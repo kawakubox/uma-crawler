@@ -27,6 +27,10 @@ module Scraper
         instance.name = jockey_name(tr)
       end
 
+      trainer = Trainer.find_or_create_by(id: trainer_id(tr)) do |instance|
+        instance.name = trainer_name(tr)
+      end
+
       race_result = ::RaceResult.find_or_initialize_by(race: @race, horse_no: horse_no(tr))
       race_result.attributes = {
         order: order(tr),
@@ -43,8 +47,7 @@ module Scraper
         jockey_weight: jockey_weight(tr),
         popularity: popularity(tr),
         odds: odds(tr),
-        trainer_id: trainer_id(tr),
-        trainer_name: trainer_name(tr)
+        trainer: trainer,
       }
       race_result
     end

@@ -15,7 +15,6 @@ create_table "race_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CH
   t.integer  "popularity"
   t.decimal  "odds",          precision: 4, scale: 1
   t.string   "trainer_id"
-  t.string   "trainer_name"
   t.datetime "created_at",                            null: false
   t.datetime "updated_at",                            null: false
 end
