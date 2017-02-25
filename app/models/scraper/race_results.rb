@@ -19,13 +19,16 @@ module Scraper
     end
 
     def row(tr)
+      horse = Horse.find_or_create_by(id: horse_id(tr)) do |instance|
+        instance.name = horse_name(tr)
+      end
+
       race_result = ::RaceResult.find_or_initialize_by(race: @race, horse_no: horse_no(tr))
       race_result.attributes = {
         order: order(tr),
         gate_no: gate_no(tr),
         horse_no: horse_no(tr),
-        horse_id: horse_id(tr),
-        horse_name: horse_name(tr),
+        horse: horse,
         weight: weight(tr),
         weight_diff: weight_diff(tr),
         time: time(tr),
