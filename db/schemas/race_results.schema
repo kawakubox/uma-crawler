@@ -11,7 +11,6 @@ create_table "race_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CH
   t.string   "passage_order"
   t.string   "last_3f_time"
   t.string   "jockey_id"
-  t.string   "jockey_name"
   t.decimal  "jockey_weight", precision: 3, scale: 1
   t.integer  "popularity"
   t.decimal  "odds",          precision: 4, scale: 1

@@ -1,5 +1,6 @@
 require 'events.schema'
 require 'horses.schema'
+require 'jockeys.schema'
 require 'race_results.schema'
 require 'refunds.schema'
 require 'races.schema'
