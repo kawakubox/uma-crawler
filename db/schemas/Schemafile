@@ -1,4 +1,5 @@
 require 'events.schema'
+require 'horse_histories.schema'
 require 'horses.schema'
 require 'jockeys.schema'
 require 'race_results.schema'
