@@ -4,12 +4,12 @@ module Scraper
   class Refund
     attr_reader :doc
     attr_reader :race
-  
+
     def initialize(race:)
       @race = race
       @doc = Nokogiri::HTML(open(race.result_url))
     end
-  
+
     def scrape
       bet_type = nil
       @doc.search('.resultYen tr').each do |tr|

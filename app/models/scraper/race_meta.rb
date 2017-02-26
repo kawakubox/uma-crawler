@@ -8,7 +8,7 @@ class Scraper::RaceMeta
   end
 
   def race_no
-    @doc.at_css('#raceNo').text.gsub(/R/, '').strip
+    @doc.at_css('#raceNo').text.delete('R').strip
   end
 
   def title
