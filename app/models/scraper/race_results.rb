@@ -31,25 +31,23 @@ module Scraper
         instance.name = trainer_name(tr)
       end
 
-      race_result = ::RaceResult.find_or_initialize_by(race: @race, horse_no: horse_no(tr))
-      race_result.attributes = {
-        order: order(tr),
-        gate_no: gate_no(tr),
-        horse_no: horse_no(tr),
-        horse: horse,
-        weight: weight(tr),
-        weight_diff: weight_diff(tr),
-        time: time(tr),
-        order_diff: order_diff(tr),
-        passage_order: passage_order(tr),
-        last_3f_time: last_3f_time(tr),
-        jockey: jockey,
-        jockey_weight: jockey_weight(tr),
-        popularity: popularity(tr),
-        odds: odds(tr),
-        trainer: trainer,
-      }
-      race_result
+      history = HorseHistory.find_or_initialize_by(horse: horse, race: @race)
+      history.horse = horse
+      history.jockey = jockey
+      history.trainer = trainer
+      history.order = order(tr)
+      history.gate_no = gate_no(tr)
+      history.horse_no = horse_no(tr)
+      history.weight = weight(tr)
+      history.weight_diff = weight_diff(tr)
+      history.time = time(tr)
+      history.order_diff = order_diff(tr)
+      history.passage_order = passage_order(tr)
+      history.last_3f_time = last_3f_time(tr)
+      history.jockey_weight = jockey_weight(tr)
+      history.popularity = popularity(tr)
+      history.odds = odds(tr)
+      history.save
     end
 
     def order(tr)
