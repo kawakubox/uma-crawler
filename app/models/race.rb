@@ -6,4 +6,8 @@ class Race < ApplicationRecord
   def result_url
     "https://keiba.yahoo.co.jp/race/result/#{id}/"
   end
+
+  def entry_url
+    "https://keiba.yahoo.co.jp/race/denma/#{id}/"
+  end
 end
