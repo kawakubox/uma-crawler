@@ -8,4 +8,5 @@ RSpec.describe Race, type: :model do
   it { is_expected.to respond_to :refunds }
 
   its(:result_url) { is_expected.to match(%r{https://keiba.yahoo.co.jp/race/result/\d{10}/}) }
+  its(:entry_url) { is_expected.to match(%r{https://keiba.yahoo.co.jp/race/denma/\d{10}/}) }
 end
