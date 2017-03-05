@@ -12,23 +12,24 @@ class Scraper::RaceMeta
   end
 
   def title
-    @doc.at_css('#raceTit h1').text.match(/(.*)(（(.*)）)?/)[1].strip
+    @doc.at_css('#raceTit h1').text.split(/[（）]/)[0].strip
   end
 
   def grade
-    @doc.at_css('#raceTit h1').text.match(/(.*)(（(.*)）)?/)[3]&.strip
+    @doc.at_css('#raceTit h1').text.split(/[（）]/)[1]&.strip
   end
 
   def course_type
-    @doc.at_css('#raceTitMeta').text.split('|')[0].match(/(芝|ダ|障害)・(左|右|芝→ダート) *(\d+)m/)[1]
+    @doc.at_css('#raceTitMeta').text.split('|')[0].match(/(芝|ダート|障害)・(左|右|直線|芝(→ダート)?)・?(内|外|内2周)? *(\d+)m/)[1]
   end
 
   def direction
-    @doc.at_css('#raceTitMeta').text.split('|')[0].match(/(芝|ダ|障害)・(左|右|芝→ダート) *(\d+)m/)[2]
+    md = @doc.at_css('#raceTitMeta').text.split('|')[0].match(/(芝|ダート|障害)・(左|右|直線|芝(→ダート)?)・?(内|外|内2周)? *(\d+)m/)
+    [md[2], md[4]].join if md
   end
 
   def distance
-    @doc.at_css('#raceTitMeta').text.split('|')[0].match(/(芝|ダ|障害)・(左|右|芝→ダート) *(\d+)m/)[3]
+    @doc.at_css('#raceTitMeta').text.split('|')[0].match(/(芝|ダート|障害)・(左|右|直線|芝(→ダート)?)・?(内|外|内2周)? *(\d+)m/)[5]
   end
 
   def weather
