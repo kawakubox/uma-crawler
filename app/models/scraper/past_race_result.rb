@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 module Scraper
-  class PastRaceEntry
+  class PastRaceResult
     attr_reader :doc
 
     # @param [Race] :race
     def initialize(race:)
-      @race = race
-      @doc = Nokogiri::HTML(open(race.entry_url)).at_css('.denmaLs')
+      @doc = Nokogiri::HTML(open(race.past_race_results_url)).at_css('.denmaLs')
     end
 
     def scrape
@@ -18,24 +17,19 @@ module Scraper
         instance.name = horse_name(tr)
       end
 
-      tr.search(td)[4..-1].map do |td|
+      tr.search('td')[4..-1].map do |td|
         next if td.text.strip.blank?
-        race = Race.find_or_create_by(id: race(td))
-        history = HorseHistory.find_or_initialize_by(horse: horse, race: @race)
-        history.save
+        h = HorseHistory.find_or_initialize_by(horse: horse, race: Race.find_or_create_by(id: race(td)))
+        h.jockey = Jockey.find_or_create_by(id: jockey_id(td))
+        h.jockey_weight = jockey_weight(td)
+        h.time = time(td)
+        h.weight = weight(td)
+        h.weight_diff = weight_diff(td)
+        h.gate_no = gate_no(td)
+        h.horse_no = horse_no(td)
+        h.popularity = popularity(td)
+        h.save
       end
-    end
-
-    def race(td)
-      td.at_css('div.denmaCk a').attr('href').match(/(\d+)/)[1]
-    end
-
-    def gate_no(tr)
-      tr.search('td')[0].text.strip
-    end
-
-    def horse_no(tr)
-      tr.search('td')[1].text.strip
     end
 
     def horse_id(tr)
@@ -46,32 +40,40 @@ module Scraper
       tr.search('td')[2].at_css('a').text.strip
     end
 
-    def weight(tr)
-      tr.search('td')[3].children[0].text.strip
+    def race(td)
+      td.search('a')[0].attr('href').match(/(\d+)/)[1]
     end
 
-    def weight_diff(tr)
-      tr.search('td')[3].children[2].text.strip.gsub(/[()]/, '').to_i
+    def jockey_id(td)
+      td.search('a')[1].attr('href').match(/(\d+)/)[1]
     end
 
-    def jockey_id(tr)
-      tr.search('td')[4].at_css('a').attr('href').split('/').last
+    def time(td)
+      td.search('a')[1].previous_element.text
     end
 
-    def jockey_name(tr)
-      tr.search('td')[4].at_css('a').text
+    def weight(td)
+      td.at_css('a + br').next_sibling.text.match(/(\d+)\(([+-]?\d+| - )\) \[(\d)\](\d{1,2})\((\d{1,2})人\)/)[1]
     end
 
-    def jockey_weight(tr)
-      tr.search('td')[4].children[2].text.gsub(/[▲△☆]/, '').strip
+    def weight_diff(td)
+      td.at_css('a + br').next_sibling.text.match(/(\d+)\(([+-]?\d+| - )\) \[(\d)\](\d{1,2})\((\d{1,2})人\)/)[2]
     end
 
-    def trainer_id(tr)
-      tr.search('td')[2].at_css('span a').attr('href').split('/').last
+    def gate_no(td)
+      td.at_css('a + br').next_sibling.text.match(/(\d+)\(([+-]?\d+| - )\) \[(\d)\](\d{1,2})\((\d{1,2})人\)/)[3]
     end
 
-    def trainer_name(tr)
-      tr.search('td')[2].at_css('span a').text
+    def horse_no(td)
+      td.at_css('a + br').next_sibling.text.match(/(\d+)\(([+-]?\d+| - )\) \[(\d)\](\d{1,2})\((\d{1,2})人\)/)[4]
+    end
+
+    def popularity(td)
+      td.at_css('a + br').next_sibling.text.match(/(\d+)\(([+-]?\d+| - )\) \[(\d)\](\d{1,2})\((\d{1,2})人\)/)[5]
+    end
+
+    def jockey_weight(td)
+      td.search('a')[1].next_sibling.text.delete('()')
     end
   end
 end

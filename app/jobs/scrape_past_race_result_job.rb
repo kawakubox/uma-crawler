@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-class ScrapeRaceEntryJob < ApplicationJob
+class ScrapePastRaceResultJob < ApplicationJob
   queue_as :default
 
   def perform(race)
-    Scraper::RaceEntry.new(race: race).scrape
+    Scraper::PastRaceResult.new(race: race).scrape
   end
 end
