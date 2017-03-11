@@ -20,6 +20,7 @@ module Scraper
       tr.search('td')[4..-1].map do |td|
         next if td.text.strip.blank?
         h = HorseHistory.find_or_initialize_by(horse: horse, race: Race.find_or_create_by(id: race(td)))
+        h.order = order(td)
         h.jockey = Jockey.find_or_create_by(id: jockey_id(td))
         h.jockey_weight = jockey_weight(td)
         h.time = time(td)
@@ -42,6 +43,10 @@ module Scraper
 
     def race(td)
       td.search('a')[0].attr('href').match(/(\d+)/)[1]
+    end
+
+    def order(td)
+      td.at_css('div').attr('class').match(/i(\d{2})(\d{2})/)[2].to_i
     end
 
     def jockey_id(td)
