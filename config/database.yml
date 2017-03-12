@@ -49,6 +49,7 @@ test:
 #
 production:
   <<: *default
-  database: uma-crawler
-  username: uma-crawler
-  password: <%= ENV['UMA-CRAWLER_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DB_URL'] %>
+  database: <%= ENV['DB_NAME] %>
+  username: <%= EVN['DB_USERNAME] %>
+  password: <%= ENV['DB_PASSWORD'] %>
