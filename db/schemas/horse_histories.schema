@@ -11,7 +11,7 @@ create_table "horse_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT
   t.string   "time"
   t.string   "order_diff"
   t.string   "passage_order"
-  t.string   "last_3f_time"
+  t.decimal  "last_3f_time",  precision: 3, scale: 1
   t.decimal  "jockey_weight", precision: 3, scale: 1
   t.integer  "popularity"
   t.decimal  "odds",          precision: 4, scale: 1
