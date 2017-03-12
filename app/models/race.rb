@@ -17,6 +17,10 @@ class Race < ApplicationRecord
     "https://keiba.yahoo.co.jp/race/denma/#{id}/?page=2"
   end
 
+  def past_race_time_url
+    "https://keiba.yahoo.co.jp/race/denma/#{id}/?page=3"
+  end
+
   def set_event
     event = Event.find_or_create_by(id.ts_s[0...-2])
   end
