@@ -7,6 +7,7 @@ class ScrapeRaceJob < ApplicationJob
   def perform(race)
     scraper = Scraper::RaceMeta.new(html: open(race.result_url))
     race.no = scraper.race_no
+    race.times = scraper.ordinal
     race.title = scraper.title
     race.grade = scraper.grade
     race.course_type = scraper.course_type
