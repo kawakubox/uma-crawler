@@ -11,8 +11,13 @@ class Scraper::RaceMeta
     @doc.at_css('#raceNo').text.delete('R').strip
   end
 
+  def ordinal
+    md = @doc.at_css('#raceTit h1').text.match(/第(\d+)回/)
+    md[1] if md
+  end
+
   def title
-    @doc.at_css('#raceTit h1').text.split(/[（）]/)[0].strip
+    @doc.at_css('#raceTit h1').text.gsub(/第(\d+)回/, '').split(/[（）]/)[0].strip
   end
 
   def grade
