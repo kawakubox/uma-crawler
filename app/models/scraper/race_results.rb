@@ -11,10 +11,6 @@ module Scraper
     end
 
     def scrape
-      rows.map(&:save)
-    end
-
-    def rows
       doc.search('tr')[1..-1].map { |tr| row(tr) }
     end
 
