@@ -50,6 +50,6 @@ test:
 production:
   <<: *default
   url: <%= ENV['DB_URL'] %>
-  database: <%= ENV['DB_NAME] %>
-  username: <%= EVN['DB_USERNAME] %>
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
