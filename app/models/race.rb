@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class Race < ApplicationRecord
   belongs_to :event
+  belongs_to :race_name
   has_many :refunds
 
   before_create :set_event
