@@ -2,6 +2,7 @@ create_table "races", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=u
   t.integer  "event_id",         null: false
   t.integer  "no"
   t.integer  "ordinal"
+  t.integer  "race_name_id"
   t.string   "title"
   t.string   "grade"
   t.string   "course_type"
