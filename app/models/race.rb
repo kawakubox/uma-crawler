@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 class Race < ApplicationRecord
   belongs_to :event
-  belongs_to :race_name
+  belongs_to :race_name, optional: true
   has_many :refunds
 
-  before_create :set_event
+  before_validation :set_event
 
   def result_url
     "https://keiba.yahoo.co.jp/race/result/#{id}/"
@@ -23,6 +23,6 @@ class Race < ApplicationRecord
   end
 
   def set_event
-    event = Event.find_or_create_by(id.ts_s[0...-2])
+    self.event = Event.find_or_create_by(id: id.to_s[0...-2])
   end
 end
