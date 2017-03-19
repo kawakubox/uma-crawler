@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Scraper
-  class PastRaceResult
+  class PastRaceResultPage
     attr_reader :doc
 
     # @param [Race] :race
