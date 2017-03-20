@@ -4,6 +4,6 @@ class ScrapePastRaceResultPageJob < ApplicationJob
 
   def perform(race)
     Scraper::PastRaceResultPage.new(race: race).scrape
-    Scraper::PastRaceTime.new(race: race).scrape
+    Scraper::PastRaceTimePage.new(race: race).scrape
   end
 end
